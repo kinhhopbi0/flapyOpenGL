@@ -1,0 +1,11 @@
+﻿Build started 4/12/2014 7:01:36 PM.
+     1>Project "E:\Data Of Vinh\Study\ky 6\DHMT\demo\PlappyBall3D\PlappyBall3D\PlappyBall3D.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (PlappyBall3D.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1190,5): warning MSB8030: The linker switch "Minimum Required Version" requires "SubSystem" to be set.  Without "SubSystem", the "Minimum Required Version" would not be passed to linker and could prevent to the output binary from running on older Operating Systems.
+     1>Link:
+         PlappyBall3D.vcxproj -> E:\Data Of Vinh\Study\ky 6\DHMT\demo\PlappyBall3D\Debug\PlappyOpenGL.exe
+     1>Done Building Project "E:\Data Of Vinh\Study\ky 6\DHMT\demo\PlappyBall3D\PlappyBall3D\PlappyBall3D.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.08
