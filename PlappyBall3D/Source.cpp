@@ -13,9 +13,9 @@ GLbyte gameOver;
 GLint val;// thời gian rơi
 
 // ball var
-GLdouble _BirX ;
-GLdouble _birY ;
-GLdouble _birZ ;
+GLdouble _BirX;
+GLdouble _birY;
+GLdouble _birZ;
 
 //pie var
 GLint _pX;
@@ -28,7 +28,7 @@ GLint _pieKc;
 GLint _pieW;// độ rộng width của ống 
 
 //windows config
-GLint _w = 500;
+GLint _w = 600;
 GLint _h = 300;
 GLint _clientX = 400;
 GLint _clientY = 200;
@@ -42,7 +42,7 @@ void Initialize(void)
 {
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.7f, 0.9f, 1.0f, 1.0f); //background 	
-//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 // khi thay ddooir kihc thuoc cua so
@@ -62,13 +62,13 @@ void DrawBird()
 	glTranslated(_BirX, _birY, 0);
 	//glBegin(GL_LINE_LOOP);
 	/*for (int angle = 0; angle< 360; angle++)
-		glVertex2f(50*cos(angle*DEG2RAD), 30*sin(angle*DEG2RAD));	*/    
+	glVertex2f(50*cos(angle*DEG2RAD), 30*sin(angle*DEG2RAD));	*/
 	//glEnd();	
 	glBegin(GL_POLYGON);
-		glVertex3f(0, 0,0);
-		glVertex3f(0, 20,0);
-		glVertex3f(20, 20, 0);
-		glVertex3f(20, 0,0);		
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 20, 0);
+	glVertex3f(20, 20, 0);
+	glVertex3f(20, 0, 0);
 	glEnd();
 	glPopMatrix();
 }
@@ -76,20 +76,20 @@ void DrawBird()
 void DrawPie(GLint _pX, GLint _pY)
 {
 	glPushMatrix();
-	glColor3ub(84,213,21);
-	glTranslated(_w -_pX, _h -_pY , 0);	
+	glColor3ub(84, 213, 21);
+	glTranslated(_w - _pX, _h - _pY, 0);
 	glBegin(GL_POLYGON);
 	glVertex3f(0, 0, 0);
-	glVertex3f(0, 20, 0);	
+	glVertex3f(0, 20, 0);
 	glVertex3f(_pieW, 20, 0);
-	glVertex3f(_pieW, 0, 0);		
+	glVertex3f(_pieW, 0, 0);
 	glEnd();
 	glColor3ub(84, 250, 21);
 	glBegin(GL_POLYGON);
-		glVertex3f(_pieW - 50, 20, 0);
-		glVertex3f(_pieW - 50, 600, 0);
-		glVertex3f(_pieW - 20, 600, 0);
-		glVertex3f(_pieW - 10, 20, 0);
+	glVertex3f(_pieW - 50, 20, 0);
+	glVertex3f(_pieW - 50, 600, 0);
+	glVertex3f(_pieW - 20, 600, 0);
+	glVertex3f(_pieW - 10, 20, 0);
 	glEnd();
 	glColor3ub(84, 213, 21);
 	glBegin(GL_POLYGON);
@@ -110,7 +110,7 @@ void DrawPie(GLint _pX, GLint _pY)
 // intialize values default for game
 void Reset()
 {
-	stop =false;
+	stop = false;
 	point = 0;
 	gameOver = false;
 	val = 0;
@@ -129,7 +129,7 @@ void Reset()
 
 //Show string on the screen
 void ShowString(double x, double y, char *s){
-	glRasterPos3d(x,y, 0);
+	glRasterPos3d(x, y, 0);
 	while (*s)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *s++);
 }
@@ -156,21 +156,21 @@ void Check(GLint _pX, GLint _pY)
 	}
 }
 void Run(int value)
-{	
+{
 	if (!stop && !gameOver)
 	{
 		_pX++;// vật cản dịch chuyển
 		_pX2++;
 		_pX3++;
 	}
-	
+
 	if (_pX - _pieW >= _w)
 	{
 		_pX = -_pieW;
 		_pY = RandomNumber(200, 10);
 	}
 	if (_pX2 - _pieW >= _w)
-	{		
+	{
 		_pX2 = -_pieW;
 		_pY2 = RandomNumber(200, 10);
 	}
@@ -179,11 +179,15 @@ void Run(int value)
 		_pX3 = -_pieW;
 		_pY3 = RandomNumber(200, 10);
 	}
-	Check(_pX,_pY);
+	Check(_pX, _pY);
 	Check(_pX2, _pY2);
 	Check(_pX3, _pY3);
-	_birY -=((GLdouble)value) * 0.035;// rơi	
-	if (_birY <= 0) 
+	if (stop && val < 0)
+	{
+		val = 1;
+	}
+	_birY -= ((GLdouble)value) * 0.035;// rơi	
+	if (_birY <= 0)
 		gameOver = true;
 	glutTimerFunc(8, Run, ++val);//
 }
@@ -198,19 +202,19 @@ void Display(void)
 	_itoa(point, s, 10);// convert int point to char* 
 	if (!gameOver)
 	{
-		glColor3f(0, 0, 0);		
-		ShowString((double)_w / 2 - 20, (double)_h / 2 + 80,s);		
+		glColor3f(0, 0, 0);
+		ShowString((double)_w / 2 - 20, (double)_h / 2 + 80, s);
 		DrawBird();
-		DrawPie(_pX, _pY);		
+		DrawPie(_pX, _pY);
 		DrawPie(_pX2, _pY2);
 		DrawPie(_pX3, _pY3);
 	}
 	else//game over
-	{		
-		glColor3f(0, 0, 0);	
+	{
+		glColor3f(0, 0, 0);
 		ShowString(_w / 2 - 20, _h / 2 + 42, s);
-		ShowString(_w / 2 - 200, _h / 2 + 10, "Game Over, press N to replay, ESC to exit.");
-		
+		ShowString(_w / 2 - 200, _h / 2 + 10, "Game Over, press any key to replay, ESC to exit.");
+
 		DrawPie(_pX, _pY);
 		DrawPie(_pX2, _pY2);
 		DrawPie(_pX3, _pY3);
@@ -221,51 +225,59 @@ void Display(void)
 	glutPostRedisplay();
 	glutSwapBuffers();
 }
+void Up()
+{
+	if (val>0)
+		val = -45;
+	else
+	{
+		val += -25;
+	}
+}
 void MouseDow(int button, int state, int x, int y)
 {
 	switch (button)
 	{
 	case GLUT_LEFT_BUTTON:
 	{
-		if (!stop)
-		{
-			val = -45;
-		}
-		if (gameOver)
-		{
-			Reset();
-		}
-			 	
+							 if (!stop)
+							 {
+								 Up();
+							 }
+							 if (gameOver)
+							 {
+								 Reset();
+							 }
+
 	}
 	default:
 		break;
 	}
 }
 void KeyPress(unsigned char key, int x, int y)
-{	
+{
 	switch (key) {
 	case 27:{//ESC
 				exit(0);
 	}break;
 	case '+':
 	{
-				_pieKc +=2;
+				_pieKc += 2;
 	}break;
 	case '-':
 	{
-				_pieKc -=2;
+				_pieKc -= 2;
 	}break;
-		case 'n': // Press N
-		{			
-			 Reset();
-			 glutPostRedisplay();
-		}break;
-		default:
-		{			
-			if (!stop)
-			 val = -45;				  
-			
-		}break;
+	default:
+	{
+			   if (!stop)
+				   Up();
+			   if (gameOver)
+			   {
+				   Reset();
+			   }
+
+	}break;
 	}
 }
 void main()
@@ -273,12 +285,12 @@ void main()
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
 	glutInitWindowSize(_w, _h);
 	glutInitWindowPosition(_clientX, _clientY);
-	glutCreateWindow("Plappy Ball");	
-	Reset();	
+	glutCreateWindow("Plappy Ball");
+	Reset();
 	glutKeyboardFunc(KeyPress);
 	glutMouseFunc(MouseDow);
 	glutDisplayFunc(Display);
-	glutReshapeFunc(resize);	
+	glutReshapeFunc(resize);
 	Run(0);
 	Initialize();
 	glutMainLoop();
